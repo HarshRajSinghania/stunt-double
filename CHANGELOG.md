@@ -26,6 +26,10 @@ file records notable unreleased changes and the initial release.
   The wrapper returns `ToolMessage(status="error")` for it, or re-raises with
   `strict_mock_errors=True`, and records the error on the `CallRecorder`. In
   lenient mode a broken factory therefore no longer falls back to the real tool.
+- **`{{sequence('X')}}` in data-driven mocks**: counters now persist across calls of
+  the same resolved data-driven mock callable (e.g. when calling the factory's result
+  directly), instead of restarting at `001` on every call. Through the tool wrapper
+  each call still resolves a fresh callable, so the ids restart there (see #56).
 - **stdio transport hangs**: the MCP client now drains the subprocess `stderr`
   pipe on a background thread, so a server that logs verbosely can no longer
   deadlock the client by filling the OS pipe buffer.
